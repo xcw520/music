@@ -83,7 +83,7 @@
             ></view>
           </view>
         </view>
-        <text>{{ endTime }}</text>
+        <text>{{ theendtime }}</text>
       </view>
       <!-- 音量调节 -->
       <view class="volume" v-if="isVolume == true">
@@ -153,6 +153,7 @@ export default {
       playStyle: ["icon-lbxh", "icon-loop", "icon-suijibofang"],
       // 播放模式索引
       key: 0,
+      theendtime: '',
       // 爱心颜色
       color: "#fff",
       // 显示音量调节
@@ -407,6 +408,7 @@ export default {
         this.activeWidth = 0;
       } else {
         this.reduceIndex();
+        this.getTime();
       }
     },
     // 下一首
@@ -425,6 +427,7 @@ export default {
         this.activeWidth = 0;
       } else {
         this.addIndex();
+        this.getTime();
       }
     },
     //获取进度条长度
@@ -487,7 +490,7 @@ export default {
       this.lyrics = res || [];
     },
     getTime() {
-      let time = this.$audio.duration;
+      let time = (this.playList[this.subscript].song.duration*1)/1000;
       this.getTotalTime(time);
       let m = parseInt(time / 60);
       m = m < 10 ? "0" + m : m;
@@ -495,6 +498,7 @@ export default {
       s = s < 10 ? "0" + s : s;
       time = m + ":" + s;
       this.getEndTime(time);
+      this.theendtime = this.endTime;
     },
     // 跳转评论页面
 		goCommentPage() {
@@ -535,6 +539,7 @@ export default {
     // 监听subscript变化更改url
     subscript() {
       this.$audio.src = this.playList[this.subscript].url;
+      this.getTime();
       this.getLyrics();
       this.getComment();
       this.activeWidth = 0;
