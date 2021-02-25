@@ -3,9 +3,9 @@
     <!-- user info -->
     <view class="mine-user">
       <view v-if="!isShow" class="user-info">
-        <view class="user-ico"
-          ><text class="user-icon text-black iconfont icon-yonghu"></text
-        ></view>
+        <view class="user-ico">
+          <image src="http://lcxcw.club/music/static/icon/attar.png"  style="width:100rpx; height:100rpx;">
+        </view>
         <view class="user-msg">登录立享全部体验</view>
         <button
           class="user-login"
@@ -25,13 +25,17 @@
     </view>
     <!-- user category -->
     <view class="user-category">
-      <view class="cate-class" v-for="(item, index) in cateList" :key="index">
-        <text
-          class="cate-icon text-black"
-          :class="'iconfont ' + item.icon"
-          @click="goto(item.id)"
-        ></text>
-        <view class="cate-name">{{ item.title }}</view>
+      <view class="cate-class">
+        <image src="http://lcxcw.club/music/static/icon/history.png"  style="width:80rpx;height:80rpx;" @click="goto(0)">
+        <view class="cate-name">历史歌曲</view>
+      </view>
+      <view class="cate-class">
+        <image src="http://lcxcw.club/music/static/icon/hobby.png"  style="width:80rpx;height:80rpx;" @click="goto(1)">
+        <view class="cate-name">我的收藏</view>
+      </view>
+      <view class="cate-class">
+        <image src="http://lcxcw.club/music/static/icon/more.png"  style="width:80rpx;height:80rpx;" @click="goto(2)">
+        <view class="cate-name">发现更多</view>
       </view>
     </view>
     <view class="user-new-title">
@@ -51,7 +55,7 @@
     <view
       class="bg"
       style="
-        background: url('../../static/picture/bg.jpg') center;
+        background: url('http://lcxcw.club/music/static/picture/bg.jpg') center;
         background-size: 100%;
       "
     ></view>
@@ -67,24 +71,7 @@ export default {
       attar: "",
       nickname: "",
       list: [],
-      show: false,
-      cateList: [
-        {
-          id: 0,
-          title: "历史歌曲",
-          icon: "icon-yinyueclick",
-        },
-        {
-          id: 1,
-          title: "我的收藏",
-          icon: "icon-shoucang",
-        },
-        {
-          id: 2,
-          title: "发现更多",
-          icon: "icon-xinge",
-        },
-      ],
+      show: false
     };
   },
   onShow() {
@@ -238,10 +225,6 @@ export default {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    .cate-icon {
-      font-size: 28px;
-      color: #fff;
-    }
     .cate-name {
       font-size: 13px;
       text-align: center;

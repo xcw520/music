@@ -10,9 +10,10 @@
           <view v-if="typeStyle === 1" @click="tosonglist(item.id)">
             <image :src="item.picUrl" mode="aspectFit" lazy-load="true"></image>
             <text>{{ item.name }}</text>
-            <text class="iconfont icon-play playCount">{{
-              getCount(item.playCount)
-            }}</text>
+            <view class="playCount">
+              <img src="http://lcxcw.club/music/static/icon/icon.png" class="img"/>
+              {{getCount(item.playCount)}}
+            </view>
           </view>
         </view>
       </scroll-view>
@@ -105,9 +106,17 @@ export default {
 
     .playCount {
       position: absolute;
-      top: 50%;
+      top: 55%;
+      width: 95%;
       text-align: right;
       color: #eee;
+      .img {
+        vertical-align: middle;
+        width: 35rpx;
+        height: 35rpx;
+        margin-bottom: 2rpx;
+        box-shadow: none !important;
+      }
     }
   }
 }

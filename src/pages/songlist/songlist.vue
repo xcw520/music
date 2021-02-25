@@ -19,9 +19,6 @@
           mode="aspectFit"
           class="bookmark"
         ></image>
-        <text class="iconfont icon-play Counttext">{{
-          getCount(userDetail.playCount)
-        }}</text>
         <!-- 歌单名字 -->
         <view class="listdetail">
           <view class="listname">
@@ -41,19 +38,15 @@
             <text class="describe">
               {{ userDetail.description ? userDetail.description : "编辑信息" }}
             </text>
-            <text
-              class="iconfont icon-like"
-              style="margin-left: 30rpx"
-              :style="{ color: color }"
-              @click="like()"
-            ></text>
+            <image v-if="color == '#fff'" style="margin-left: 30rpx;width:40rpx;height:40rpx;" src="http://lcxcw.club/music/static/icon/like.png" @click="like()"></image>
+            <image v-else src="http://lcxcw.club/music/static/icon/like2.png" style="margin-left: 30rpx;width:40rpx;height:40rpx;" @click="like()">
           </view>
         </view>
       </view>
 
       <view class="myscroll" v-if="songlist.length !== 0">
         <view class="listnav">
-          <text class="iconfont icon-play"></text>
+          <image src="http://lcxcw.club/music/static/icon/play.png" class="img">
           <text class="list">歌单列表</text>
           <text class="listnum">（共{{ songlist.length }}首）</text>
         </view>
@@ -114,10 +107,13 @@ export default {
       params: {
         width: "300rpx",
         height: "400rpx",
-        image: "../../static/picture/bg.jpg",
+        image: "../../static/picture/bg.JPG",
         blur: "xl",
       },
     };
+  },
+  onUnload() {
+    clearInterval(this.$setTimeout);
   },
   methods: {
     ...mapMutations(["getIndex", "getPlayList", "getIsBtn"]),
@@ -140,13 +136,13 @@ export default {
     getLike() {
       let _this = this;
       if (this.isShow) {
-        wx.showLoading({title: '请稍等'});
+        wx.showLoading({ title: "请稍等" });
         this.$ajax(
           `http://php.lcxcw.club/index/collect/getLike?id=${_this.id}`
         ).then((res) => {
           if (res.data) {
             _this.color = "#FF5E52";
-            wx.hideLoading()
+            wx.hideLoading();
           }
         });
       }
@@ -205,9 +201,14 @@ export default {
         return console.log("版权受限");
       } else {
         this.modifyInfo(list, i);
+        if (!this.isBtn && this.$audio.src) {
+          this.$audio.play();
+        }
+        this.$setTimeout = setTimeout(function(){
         uni.navigateTo({
           url: `/pages/musicPage/musicPage`,
-        });
+        });},500);
+        this.getIsBtn(true);
       }
     },
     getCount(num) {
@@ -301,7 +302,7 @@ export default {
     ...mapState(["isShow", "isBtn", "playList", "subscript"]),
   },
   onLoad(e) {
-    wx.showLoading({title: '加载中', icon: 'loading', duration: 10000});
+    wx.showLoading({ title: "加载中", icon: "loading", duration: 10000 });
     this.id = e.id;
     if (this.isShow) {
       this.getLike(e.id);
@@ -441,7 +442,11 @@ export default {
     padding-left: 30rpx;
     margin-top: 20rpx;
     height: 80rpx;
-
+    .img {
+      width: 40rpx;
+      height: 40rpx;
+      vertical-align: middle;
+    }
     .iconfont {
       font-size: 50rpx;
       vertical-align: middle;

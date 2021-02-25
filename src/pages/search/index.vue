@@ -111,6 +111,9 @@ export default {
   onLoad() {
     this.getHotSearch();
   },
+  onUnload() {
+    clearInterval(this.$setTimeout);
+  },
   methods: {
     ...mapMutations(["getIndex", "getPlayList", "getIsBtn"]),
     // 获取热搜排行榜
@@ -169,9 +172,13 @@ export default {
       }
       this.getIndex(i);
       this.getPlayList(list);
-      uni.navigateTo({
-        url: `/pages/musicPage/musicPage`,
-      });
+      if (!this.isBtn && this.$audio.src) {
+        this.$audio.play();
+      }
+      this.$setTimeout = setTimeout(function(){
+        uni.navigateTo({
+          url: `/pages/musicPage/musicPage`,
+        });},1000);
       this.getIsBtn(true);
     },
     // 触摸事件
@@ -195,6 +202,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 $bColor: #d83d34;
 .slot-wrap {
   width: 85%;

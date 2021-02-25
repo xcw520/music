@@ -39,7 +39,4 @@
 <style lang="scss">
  	@import "uview-ui/index.scss";
 	@import './common/common.css';
-	@import './static/fonts/icon/iconfont.css';
-	@import './static/fonts/icon/iconfont2.css';
-	@import './static/fonts/icon/iconfont3.css';
 </style>

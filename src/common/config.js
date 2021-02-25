@@ -1,4 +1,4 @@
-const serverUrl = 'http://192.168.7.4:3300';
+const serverUrl = 'https://music.lcxcw.club';
 
 export default {
     serverUrl

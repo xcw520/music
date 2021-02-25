@@ -65,10 +65,7 @@
             </view>
             <view class="likedCount">
               {{ item.likedCount }}
-              <text
-                class="iconfont icon-liked"
-                style="margin-left: 6rpx"
-              ></text>
+              <image src="http://lcxcw.club/music/static/icon/zan.png" style="margin-left: 6rpx;width:30rpx;height:30rpx;">
             </view>
           </view>
           <view class="text">
@@ -120,10 +117,7 @@
             </view>
             <view class="likedCount">
               {{ item.likedCount }}
-              <text
-                class="iconfont icon-liked"
-                style="margin-left: 6rpx"
-              ></text>
+              <image src="http://lcxcw.club/music/static/icon/zan.png" style="margin-left: 6rpx;width:30rpx;height:30rpx;">
             </view>
           </view>
           <view class="text">

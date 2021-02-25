@@ -43,6 +43,7 @@ audio.onTimeUpdate(() => {
 })
 // 音频自然播放结束后触发的事件
 audio.onEnded(() => {
+	console.log(store.state.style);
 	if (store.state.style !=1 ) {
 		if (store.state.subscript < store.getters.length) {
 			store.commit('addIndex');

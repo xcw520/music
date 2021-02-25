@@ -35,7 +35,7 @@
     <view
       class="bg"
       style="
-        background: url('../../static/picture/index.jpg') center;
+        background: url('http://lcxcw.club/music/static/picture/index.jpg') center;
         background-size: 100%;
       "
     ></view>
@@ -138,6 +138,7 @@ export default {
 </script>
 
 <style lang="scss">
+
 .bg {
   position: fixed;
   top: 0px;

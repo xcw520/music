@@ -72,7 +72,9 @@ export default {
       }
       this.getIndex(i);
       this.getPlayList(list);
-
+      if (!this.isBtn && this.$audio.src) {
+        this.$audio.play();
+      }
       uni.navigateTo({
         url: `/pages/musicPage/musicPage`,
       });
@@ -125,6 +127,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .song-list {
   .song-list-head {
     margin: 20rpx 0 24rpx 34rpx;

@@ -2,11 +2,12 @@
   <view class="musicPage">
     <!-- 歌曲信息 -->
     <view class="pageHead">
-      <text
-        class="iconfont icon-left"
-        style="margin: 0 26rpx; color: #f1f1f1; font-size: 60rpx"
-        @click="backPage"
-      ></text>
+      <image
+          src="http://lcxcw.club/music/static/picture/return.png"
+          mode="aspectFit"
+          @click="backPage"
+          style="width:90rpx; vertical-align: middle;"
+      ></image>
       <view class="info">
         <view class="name">{{ playList[subscript].name }}</view>
         <view class="singer">
@@ -41,7 +42,7 @@
             >
               <image
                 style="width: 540rpx; height: 540rpx"
-                src="../../static/image/play_disc.png"
+                src="http://lcxcw.club/music/static/image/play_disc.png"
               ></image>
               <image
                 class="songImg"
@@ -54,7 +55,7 @@
         <image
           class="pointer"
           :class="isBtn && isSpin ? 'angle' : ''"
-          src="../../static/image/play_needle.png"
+          src="http://lcxcw.club/music/static/image/play_needle.png"
         ></image>
       </view>
       <!-- 歌词 -->
@@ -79,7 +80,7 @@
           <text class="line" ref="linRef"></text>
           <view class="activityLine">
             <view class="activityLineItem" :style="isWidth"
-              ><text class="iconfont icon-dots"></text
+              ><text class="dots"></text
             ></view>
           </view>
         </view>
@@ -107,30 +108,22 @@
       </view>
       <!-- 按钮功能区 -->
       <view class="play-btn">
-        <text
-          class="iconfont icon-like"
-          :style="{ color: color }"
-          @click="like()"
-        ></text>
-        <text
-          class="iconfont"
-          :class="playStyle[key]"
-          @click="changeStyle(key)"
-        ></text>
-        <text class="iconfont icon-top-music" @click="topMusic"></text>
+        <image v-if="color == '#fff'" style="margin-left: 30rpx;width:40rpx;height:40rpx;" src="@/static/icon/like.png" @click="like()"></image>
+        <image v-else src="http://lcxcw.club/music/static/icon/like2.png" style="margin-left: 30rpx;width:40rpx;height:40rpx;" @click="like()">
+        <image v-if="key == 0" src="http://lcxcw.club/music/static/icon/xunhuan.png" style="width:40rpx;height:40rpx;"  @click="changeStyle(key)"></image>
+        <image v-if="key == 1" src="http://lcxcw.club/music/static/icon/danqu.png" style="width:40rpx;height:40rpx;"  @click="changeStyle(key)"></image>
+        <image v-if="key == 2" src="http://lcxcw.club/music/static/icon/suiji.png" style="width:40rpx;height:40rpx;"  @click="changeStyle(key)"></image>
+        <image src="http://lcxcw.club/music/static/icon/shang.png" style="width:50rpx;height:50rpx;" @click="topMusic"></image>
         <!-- 播放与暂停 -->
         <view class="playPause">
-          <text class="iconfont icon-pause" v-if="isBtn" @click="pause"></text>
-          <text class="iconfont icon-play" v-else @click="play"></text>
+           <image src="http://lcxcw.club/music/static/icon/stop.png" v-if="isBtn" @click="pause" style="width:100rpx;height:100rpx;"></image>
+           <image src="http://lcxcw.club/music/static/icon/play2.png" v-else @click="play" style="width:100rpx;height:100rpx;"></image>
         </view>
-        <text class="iconfont icon-next-music" @click="nextMusic"></text>
-        <text
-          class="iconfont"
-          :class="classVolume"
-          @click="function () {this.isVolume = !this.isVolume;}"
-        ></text>
+        <image src="http://lcxcw.club/music/static/icon/xia.png" style="width:50rpx;height:50rpx;" @click="nextMusic"></image>
+        <image src="http://lcxcw.club/music/static/icon/jingyin.png" v-if="classVolume" @click="function () {this.isVolume = !this.isVolume;}" style="width:40rpx;height:40rpx;"></image>
+        <image src="http://lcxcw.club/music/static/icon/shengyin.png" v-else @click="function () {this.isVolume = !this.isVolume;}" style="width:40rpx;height:40rpx;"></image>
         <view class="comments" @click="goCommentPage">
-          <text class="iconfont icon-comment"></text>
+          <image src="http://lcxcw.club/music/static/icon/count.png" style="width:40rpx;height:40rpx;"></image>
           <text class="total">{{ total }}</text>
         </view>
       </view>
@@ -148,12 +141,12 @@ export default {
   data() {
     return {
       // 音量/静音切换
-      classVolume: ".icon-guangbo",
+      classVolume: false,
       // 播放模式
       playStyle: ["icon-lbxh", "icon-loop", "icon-suijibofang"],
       // 播放模式索引
       key: 0,
-      theendtime: '',
+      theendtime: "",
       // 爱心颜色
       color: "#fff",
       // 显示音量调节
@@ -178,7 +171,7 @@ export default {
         background: "0",
       },
       centerStyle: {
-        btnImg: "../../static/image/btn.png",
+        btnImg: "../../static/image/btn.PNG",
       },
       // 音量
       volume: 100,
@@ -190,7 +183,6 @@ export default {
     bingLyric,
   },
   onLoad() {
-    this.getTime();
     wx.showLoading({ title: "加载中", icon: "loading", duration: 10000 });
     if (this.isShow && this.playList[this.subscript].id) {
       this.getLike(this.playList[this.subscript].id);
@@ -198,6 +190,7 @@ export default {
     }
     this.getLyrics();
     this.getComment();
+    this.getTime();
   },
   async onReady() {
     this.getTime();
@@ -215,9 +208,6 @@ export default {
       }, 1000);
     }
     wx.hideLoading();
-    if (!this.isBtn && this.$audio.src) {
-      this.$audio.play();
-    }
   },
   onUnload() {
     clearInterval(this.$setInterval);
@@ -481,8 +471,7 @@ export default {
           id: this.playList[this.subscript].id,
         },
       });
-      if (res.data.lrc && res.data.lrc.lyric)
-      {
+      if (res.data.lrc && res.data.lrc.lyric) {
         res.data.lrc.lyric = res.data.lrc.lyric
           .replace(/\[/g, "sb[")
           .split("sb");
@@ -490,7 +479,16 @@ export default {
       this.lyrics = res || [];
     },
     getTime() {
-      let time = (this.playList[this.subscript].song.duration*1)/1000;
+      // console.log(this.playList[this.subscript]);
+      let time = '';
+      if (this.playList[this.subscript].song) {
+        time = (this.playList[this.subscript].song.duration * 1) / 1000;
+      } else {
+        time = this.$audio.duration;
+      }
+      // if (this.playList[this.subscript].song && !this.$audio.duration) {
+      //   time = (this.playList[this.subscript].song.duration * 1) / 1000;
+      // }
       this.getTotalTime(time);
       let m = parseInt(time / 60);
       m = m < 10 ? "0" + m : m;
@@ -501,11 +499,11 @@ export default {
       this.theendtime = this.endTime;
     },
     // 跳转评论页面
-		goCommentPage() {
-			uni.navigateTo({
-				url: `songComment/songComment?id=${this.playList[this.subscript].id}`
-			});
-		},
+    goCommentPage() {
+      uni.navigateTo({
+        url: `songComment/songComment?id=${this.playList[this.subscript].id}`,
+      });
+    },
   },
   computed: {
     ...mapState([
@@ -569,9 +567,9 @@ export default {
     volumes() {
       this.setVolume();
       if (this.volumes <= 0) {
-        this.classVolume = ".icon-jingyin";
+        this.classVolume = true;
       } else {
-        this.classVolume = ".icon-guangbo";
+        this.classVolume = false;
       }
     },
   },
@@ -579,6 +577,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 .bg {
   position: fixed;
   top: 0px;
@@ -606,7 +605,7 @@ export default {
   height: calc(11vh - var(--window-top));
   align-items: center;
   .info {
-    width: 70%;
+    width: 80%;
     margin: 0 auto;
     text-align: left;
     .name {
@@ -741,10 +740,15 @@ export default {
         position: relative;
         height: 2px;
         background-color: #fff;
-        .icon-dots {
+        .dots {
           position: absolute;
-          right: -32rpx;
-          top: -38rpx;
+          right: -8rpx;
+          top: -8rpx;
+          display: inline-block;
+          width: 16rpx;
+          height: 16rpx;
+          background-color: #fff;
+          border-radius: 8rpx;
           font-size: 60rpx;
         }
       }
