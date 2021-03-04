@@ -4,6 +4,9 @@
 后端使用的网易云api接口
  [NeteaseCloudMusicApi](https://binaryify.github.io/NeteaseCloudMusicApi/#/?id=neteasecloudmusicapi)，
 感谢[Binaryify](https://github.com/Binaryify)对接口文档不断维护与更新
+
+效果展示：
+<img src="http://lcxcw.club/show/1.jpg">
 ## Project setup
 ```
 下载api接口打开
