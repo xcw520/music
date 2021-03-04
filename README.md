@@ -7,7 +7,7 @@
 
 效果展示：
 <br/>
-<img src="http://lcxcw.club/show/1.jpg" style="width:100px">
+<img src="http://lcxcw.club/show/1.jpg" style="width:50px;height:50px">
 ## Project setup
 ```
 下载api接口打开
