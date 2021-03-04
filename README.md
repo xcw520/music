@@ -6,7 +6,8 @@
 感谢[Binaryify](https://github.com/Binaryify)对接口文档不断维护与更新
 
 效果展示：
-<img src="http://lcxcw.club/show/1.jpg">
+<br/>
+<img src="http://lcxcw.club/show/1.jpg" style="width:100px">
 ## Project setup
 ```
 下载api接口打开
